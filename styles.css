@@ -1,0 +1,150 @@
+
+/* SECTION: Coding
+## Results {.codefont}
+```{r,echo=FALSE}
+lemon <-read.csv("LemonData.csv")
+```
+```{r}
+model.fit.1<-lm(y~(x1+x2+x3+x4+x5)^2,lemon)
+summary(model.fit.1)
+```
+ */
+.codefont pre {
+    font-size: 12px;
+    line-height: 10px;
+}
+
+/* Fix two columns layouts when printing to pdf */
+/*.forceBreak { -webkit-column-break-after: always; break-after: column; }*/
+
+#before-column p.forceBreak {
+    break-before: column;
+}
+#after-column p.forceBreak {
+    break-after: column;
+}
+
+/* SECTION: Block Quote */
+blockquote {
+    font-family: Georgia, serif;
+    font-size: 50px;
+    font-style: italic;
+    width: 500px;
+    margin: 0.25em 0;
+    padding: 0.25em 40px;
+    line-height: 1.45;
+    position: relative;
+    color: #383838;
+}
+
+blockquote:before {
+    display: block;
+    content: "\201C";
+    font-size: 80px;
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    color: #7a7a7a;
+}
+
+blockquote cite {
+    color: #999999;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}
+
+blockquote cite:before {
+    content: "\2014 \2009";
+}
+
+/* Adding a new smallerstill class for slides which means we have an additional class which is smaller than .smaller */
+article.smallerstill p, article.smallerstill ul, article.smallerstill ol {
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0;
+}
+
+article.smallerstill table td, article.smallerstill table th {
+    font-size: 12px;
+}
+
+article.smallerstill pre {
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0;
+}
+
+article.smallerstill q {
+    font-size: 38px;
+    line-height: 45px;
+}
+
+article.smallerstill q:before, article.smallerstill q:after {
+    font-size: 55px;
+}
+
+/* Adding a new smallest class for slides which means we have an additional class which is smaller than .smaller */
+article.smallest p, article.smallest ul, article.smallest ol {
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0;
+}
+
+article.smallest table td, article.smallest table th {
+    font-size: 10px;
+}
+
+article.smallest pre {
+    font-size: 12px;
+    line-height: 19px;
+    letter-spacing: 0;
+}
+
+article.smallest q {
+    font-size: 28px;
+    line-height: 35px;
+}
+
+article.smallest q:before, article.smallest q:after {
+    font-size: 45px;
+}
+
+slides > slide.backdrop {
+  background: none !important;
+  background-color: white !important;
+}
+/*
+table,
+.table-condensed,
+table.rmdtable {
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+table,
+.table-condensed,
+table.rmdtable,
+table.rmdtable .header th,
+.table > thead > tr > th {
+  border-collapse: collapse;
+  border-style: solid;
+  border-spacing: 0;
+  border-width: medium 0 medium 0;
+  border-color: inherit
+}
+table.rmdtable th,
+table.rmdtable td,
+table th,
+table.rmdtable tr > td:first-child,
+table.rmdtable .even {
+  font-size: 100%;
+  padding: 0.4em 0.5em;
+  color: inherit;
+  background: #FFF;
+  font-weight: normal;
+}
+.table > tbody > tr > td {
+  border-width: 0;
+}
+*/
