@@ -1,0 +1,163 @@
+---
+title: "Awesome Title"
+author: "Dr. Michael Green"
+date: "`r Sys.Date()`"
+output: 
+  ioslides_presentation: 
+    css: styles.css
+    fig_caption: yes
+    keep_md: yes
+    logo: logo.png
+    widescreen: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(lubridate)
+library(datools)
+library(ggplot2)
+library(scales)
+library(shiny)
+library(DiagrammeR)
+```
+
+## Cool quote {.flexbox .vcenter}
+> Fear is the enemy!
+
+## Two column layout that works!
+
+<div style="float: left; width: 50%;">
+```{r aigrowthrevenueplot, echo=FALSE, fig.width=5, message=FALSE, warning=FALSE, paged.print=FALSE}
+r<-c(418.9, 641.9, 35870)
+x<-c(2014,2016,2025)
+mylm<-lm(log(r)~x, data=data.frame(x,r)) #; summary(mylm); damodel::plotPrediction2(mylm)
+tmpdf<-tibble(Year=min(x):max(x), 
+              Direct=seq(min(r), max(r), length.out = length(Year)),
+              Revenue=exp(coef(mylm)[1]+coef(mylm)[2]*Year))
+ggplot(tmpdf, aes(y=Revenue*1.25, x=Year)) + geom_bar(stat="identity") + 
+  scale_y_continuous(labels = dollar) + ylab("Million USD") + theme_minimal() + 
+  geom_text(aes(label=dollar(round(Revenue*1.25,0)))) + 
+  ggtitle("Artificial Intelligence - Direct Revenue\n2014 - 2025 (USD Million)")
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r aigrowthrevenueshareplot, echo=FALSE, fig.width=5, message=FALSE, warning=FALSE, paged.print=FALSE}
+myareas<-c("Healthcare", "BFSI", "Law", "Retail", "Advertising", 
+           "Automotive", "Agriculture", "Manufacturing", "Others")
+tmpdf<-tibble(Field=factor(myareas, levels = myareas),
+              Share=c(10, 19, 2, 11, 21, 11, 6, 8, 12))
+blank_theme <- theme_minimal() + 
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        panel.border = element_blank(),
+        panel.grid=element_blank(),
+        axis.ticks = element_blank())
+ggplot(tmpdf, aes(y=Share, x=factor(1), fill=Field)) + 
+  geom_bar(stat="identity", width = 1) + blank_theme + 
+  theme(axis.text.x=element_blank()) + xlab("") + ylab("") + 
+  labs(fill="Vertical") + 
+  geom_text(aes(x=factor(1), label=percent(Share/100)), 
+            position = position_stack(vjust = 0.5)) + 
+  coord_polar(theta = "y") + scale_fill_brewer(type = "seq", palette = 4) +
+  ggtitle("Artificial Intelligence Market By end use 2016")
+```
+</div>
+
+## Allows us to do math and explanations
+
+<div style="float: left; width: 50%;">
+- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in pharetra nisl. Nam tempus mi elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+- Quisque fermentum rhoncus ipsum, sed cursus leo auctor in. Sed hendrerit, ipsum gravida pellentesque ornare, enim sapien dignissim nisl, vitae sollicitudin tellus tellus sit amet sapien.
+</div>
+
+<div style="float: right; width: 50%;">
+Joint probability
+$$p\left(x,y,\theta\right)$$
+Likelihood
+$$p\left(y|\theta,x\right)$$
+Posterior probability
+$$p\left(\theta|y, x\right)=\frac{p\left(y|\theta, x\right)p\left(\theta|x\right)}{\int p\left(y,\theta|x\right)d\theta}$$
+</div>
+
+## Also works with three columns {.small}
+
+<div style="float: left; width: 33%;">
+
+### **Topic A**
+- Lorem
+- ipsum
+- dolor
+- sit
+- amet,
+- consectetur
+- adipiscing
+- elit
+</div>
+
+<div style="float: left; width: 33%;">
+
+### **Topic B**
+- Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+- Vestibulum in pharetra nisl.
+- Nam tempus mi elit.
+</div>
+
+<div style="float: right; width: 33%;">
+
+### **Topic C**
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in pharetra nisl. Nam tempus mi elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+</div>
+
+## We can make things small {.small}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in pharetra nisl. Nam tempus mi elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque fermentum rhoncus ipsum, sed cursus leo auctor in. Sed hendrerit, ipsum gravida pellentesque ornare, enim sapien dignissim nisl, vitae sollicitudin tellus tellus sit amet sapien. Sed sed lobortis diam, vel malesuada mauris. Aliquam eu diam in arcu tincidunt malesuada facilisis sed diam. Nulla ligula mauris, interdum et neque aliquam, vestibulum eleifend arcu.
+
+## We can make things smaller {.smaller}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in pharetra nisl. Nam tempus mi elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque fermentum rhoncus ipsum, sed cursus leo auctor in. Sed hendrerit, ipsum gravida pellentesque ornare, enim sapien dignissim nisl, vitae sollicitudin tellus tellus sit amet sapien. Sed sed lobortis diam, vel malesuada mauris. Aliquam eu diam in arcu tincidunt malesuada facilisis sed diam. Nulla ligula mauris, interdum et neque aliquam, vestibulum eleifend arcu.
+
+Donec vestibulum nec arcu id porttitor. Ut sed metus neque. Cras mollis risus quis suscipit sollicitudin. Sed venenatis enim et mattis congue. Pellentesque lobortis rutrum vestibulum. Vestibulum sit amet metus posuere, dignissim dolor a, fermentum erat. Ut eget tellus sed odio scelerisque sagittis. Aliquam condimentum lectus eget quam imperdiet suscipit. Ut vitae porta ex. Cras nulla sem, tempus eu erat nec, vulputate aliquam quam. Vestibulum non tempor turpis, sit amet elementum elit. Suspendisse pretium tortor vel augue egestas suscipit. Sed a felis luctus, pulvinar tellus sed, tristique elit. Suspendisse ac dui libero.
+
+## We can make things smallerstill {.smallerstill}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in pharetra nisl. Nam tempus mi elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque fermentum rhoncus ipsum, sed cursus leo auctor in. Sed hendrerit, ipsum gravida pellentesque ornare, enim sapien dignissim nisl, vitae sollicitudin tellus tellus sit amet sapien. Sed sed lobortis diam, vel malesuada mauris. Aliquam eu diam in arcu tincidunt malesuada facilisis sed diam. Nulla ligula mauris, interdum et neque aliquam, vestibulum eleifend arcu.
+
+Donec vestibulum nec arcu id porttitor. Ut sed metus neque. Cras mollis risus quis suscipit sollicitudin. Sed venenatis enim et mattis congue. Pellentesque lobortis rutrum vestibulum. Vestibulum sit amet metus posuere, dignissim dolor a, fermentum erat. Ut eget tellus sed odio scelerisque sagittis. Aliquam condimentum lectus eget quam imperdiet suscipit. Ut vitae porta ex. Cras nulla sem, tempus eu erat nec, vulputate aliquam quam. Vestibulum non tempor turpis, sit amet elementum elit. Suspendisse pretium tortor vel augue egestas suscipit. Sed a felis luctus, pulvinar tellus sed, tristique elit. Suspendisse ac dui libero.
+
+Curabitur accumsan tincidunt elit, aliquam ultricies nisl tempor id. Aenean mollis, nisl nec elementum aliquet, risus magna bibendum sem, commodo iaculis est purus sit amet dui. Nulla eleifend sem a ante lacinia, sit amet pharetra leo laoreet. Cras posuere urna neque, at feugiat velit interdum fermentum. Nullam semper luctus augue vel malesuada. Praesent ut aliquet leo. Vivamus nec velit ut ante finibus porta. Maecenas eget efficitur neque. Vestibulum tincidunt lorem vel nulla pulvinar cursus. Sed a euismod est. In massa ex, elementum sit amet urna et, semper gravida sapien. Etiam ultricies ac nunc in posuere. Vestibulum convallis interdum lectus, eget gravida magna blandit vitae. Nullam ac sapien feugiat turpis mollis varius. Aliquam aliquam ipsum a neque mollis commodo.
+
+## We can make things smallest {.smallest}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in pharetra nisl. Nam tempus mi elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque fermentum rhoncus ipsum, sed cursus leo auctor in. Sed hendrerit, ipsum gravida pellentesque ornare, enim sapien dignissim nisl, vitae sollicitudin tellus tellus sit amet sapien. Sed sed lobortis diam, vel malesuada mauris. Aliquam eu diam in arcu tincidunt malesuada facilisis sed diam. Nulla ligula mauris, interdum et neque aliquam, vestibulum eleifend arcu.
+
+Donec vestibulum nec arcu id porttitor. Ut sed metus neque. Cras mollis risus quis suscipit sollicitudin. Sed venenatis enim et mattis congue. Pellentesque lobortis rutrum vestibulum. Vestibulum sit amet metus posuere, dignissim dolor a, fermentum erat. Ut eget tellus sed odio scelerisque sagittis. Aliquam condimentum lectus eget quam imperdiet suscipit. Ut vitae porta ex. Cras nulla sem, tempus eu erat nec, vulputate aliquam quam. Vestibulum non tempor turpis, sit amet elementum elit. Suspendisse pretium tortor vel augue egestas suscipit. Sed a felis luctus, pulvinar tellus sed, tristique elit. Suspendisse ac dui libero.
+
+Curabitur accumsan tincidunt elit, aliquam ultricies nisl tempor id. Aenean mollis, nisl nec elementum aliquet, risus magna bibendum sem, commodo iaculis est purus sit amet dui. Nulla eleifend sem a ante lacinia, sit amet pharetra leo laoreet. Cras posuere urna neque, at feugiat velit interdum fermentum. Nullam semper luctus augue vel malesuada. Praesent ut aliquet leo. Vivamus nec velit ut ante finibus porta. Maecenas eget efficitur neque. Vestibulum tincidunt lorem vel nulla pulvinar cursus. Sed a euismod est. In massa ex, elementum sit amet urna et, semper gravida sapien. Etiam ultricies ac nunc in posuere. Vestibulum convallis interdum lectus, eget gravida magna blandit vitae. Nullam ac sapien feugiat turpis mollis varius. Aliquam aliquam ipsum a neque mollis commodo.
+
+
+## Awesome Gantt chart
+
+```{r process, echo=FALSE, fig.width=10, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(DiagrammeR)
+mermaid("
+gantt
+        dateFormat  YYYY-MM-DD
+        title Timeline and Deliverables
+        section Milestone 1
+Buy pasta         : done, 2018-01-01,100d
+Cook pasta   : active, 2018-01-01,365d
+Eat pasta : active, 2018-02-28, 365d
+section Milestone 2
+Donec vestibulum: 2018-04-01, 100d
+nec arcu : 2018-05-01, 100d
+id porttitor : 2018-05-01, 60d
+section Milestone 3
+Regret : 30d
+")
+```
+
