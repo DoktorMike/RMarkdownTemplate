@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: person("Michael", "Green", email = "micke.green@gmail.com", role = c("aut", "cre"))
 Description: Provides functional templates for business presentations based on the ioslides framework. Specifically it handles the printing of the HTML format to PDF which is more often than not a requirement.
 Depends: R (>= 3.4.3)
-License: GPL-3
+License: GPL-3 + file LICENSE
 Imports: utils, rmarkdown, knitr
 Encoding: UTF-8
 LazyData: true
